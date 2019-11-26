@@ -24,19 +24,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Create A New Account"
+            android:text="LOGIN"
             android:textSize="20dp"
             android:textStyle="bold|italic"
             android:textColor="@android:color/background_dark"
             />
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/username"
-            android:layout_marginTop="10dp"
-            android:hint="Username"
-            />
 
         <EditText
             android:layout_width="match_parent"
@@ -56,10 +49,10 @@
             android:inputType="textPassword"
             />
         <Button
-            android:id="@+id/btn"
+            android:id="@+id/btn_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="REGISTER"
+            android:text="LOGIN"
             android:textStyle="bold"
             android:background="@android:color/holo_blue_dark"
             android:textColor="#ffff"
