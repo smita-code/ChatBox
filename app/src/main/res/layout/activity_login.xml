@@ -4,61 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterActivity">
+    tools:context=".RegisterFragment">
 
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/bar_layout"
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
-        />
-
-    <LinearLayout
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_register"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
-        android:padding="16dp"
-        android:layout_below="@id/toolbar"
-        >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="LOGIN"
-            android:textSize="20dp"
-            android:textStyle="bold|italic"
-            android:textColor="@android:color/background_dark"
-            />
-
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/email"
-            android:layout_marginTop="10dp"
-            android:hint="Email"
-            android:inputType="textEmailAddress"
-            />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/password"
-            android:layout_marginTop="10dp"
-            android:hint="Password"
-            android:inputType="textPassword"
-            />
-        <Button
-            android:id="@+id/btn_login"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="LOGIN"
-            android:textStyle="bold"
-            android:background="@android:color/holo_blue_dark"
-            android:textColor="#ffff"
-            android:textSize="20dp"
-            android:layout_marginTop="70dp"
-            />
-    </LinearLayout>
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="24dp"
+        android:layout_weight="1"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:text="Don't Have an account? Create New"
+        android:textAllCaps="false"
+        app:cornerRadius="0dp" />
 
 </RelativeLayout>
