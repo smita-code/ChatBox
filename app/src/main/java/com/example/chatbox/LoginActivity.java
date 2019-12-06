@@ -26,13 +26,5 @@ public class LoginActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new LoginFragment()).commit();
         }
-
-        findViewById(R.id.btn_register).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getSupportFragmentManager().beginTransaction().addToBackStack("login")
-                        .replace(R.id.fragment_container, new RegisterFragment()).commit();
-            }
-        });
     }
 }

@@ -7,58 +7,45 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.chatbox.model.User;
 import com.google.firebase.auth.FirebaseAuth;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
-    private List<Users> usersList = new ArrayList<>();
+    private DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("Chats");
-        }
-
-        init();
-    }
-
-    private void init() {
-        initData();
-        ConversationUserListAdapter adapter = new ConversationUserListAdapter(usersList, this);
-        RecyclerView recyclerView = findViewById(R.id.user_list);
-
-        recyclerView.setHasFixedSize(true);
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        recyclerView.setAdapter(adapter);
-
-
-        adapter.setOnItemClickListener(new OnItemClickListener() {
+        reference.child(user.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
-            public void itemClick(int position) {
-                Intent intent = new Intent(getApplicationContext(), ChatsActivity.class);
-                Users users = usersList.get(position);
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
 
-                intent.putExtra(ChatsActivity.EXTRA_USERNAME, users.getName());
-                startActivity(intent);
+                if (user != null) {
+                    if (getSupportActionBar() != null) {
+                        getSupportActionBar().setTitle(user.getUserName());
+                    }
+
+                    /*I will add user image later.*/
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
-    }
-
-    private void initData() {
-        for (int i = 0; i < 30; i++) {
-            usersList.add(new Users("avatarurl", "Name " + i, "last message " + i));
-        }
     }
 
     @Override

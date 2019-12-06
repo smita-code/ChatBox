@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.chatbox.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -21,8 +22,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.HashMap;
 
 public class RegisterFragment extends Fragment {
 
@@ -70,7 +69,7 @@ public class RegisterFragment extends Fragment {
         view.findViewById(R.id.login).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getFragmentManager().popBackStack();
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container, new LoginFragment()).commit();
             }
         });
     }
@@ -83,16 +82,16 @@ public class RegisterFragment extends Fragment {
 
                         if (task.isSuccessful()) {
                             FirebaseUser firebaseUser = auth.getCurrentUser();
+                            if (firebaseUser == null)
+                                return;
+
                             String userid = firebaseUser.getUid();
 
                             reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
 
-                            HashMap<String, String> hashMap = new HashMap<>();
-                            hashMap.put("id", userid);
-                            hashMap.put("username", username);
-                            hashMap.put("imageURL", "default");
+                            User u = new User("default", username, userid);
 
-                            reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            reference.setValue(u).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
 
@@ -106,8 +105,8 @@ public class RegisterFragment extends Fragment {
                                 }
                             });
                         } else {
-
-                            Toast.makeText(getContext(), "You can't login with this email or password", Toast.LENGTH_LONG).show();
+                            if (task.getException() != null)
+                                Toast.makeText(getContext(), String.valueOf(task.getException().getMessage()), Toast.LENGTH_LONG).show();
                         }
 
                     }

@@ -82,5 +82,13 @@ public class LoginFragment extends Fragment {
         });
 
         auth = FirebaseAuth.getInstance();
+
+        view.findViewById(R.id.btn_register).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getFragmentManager().beginTransaction().addToBackStack("login")
+                        .replace(R.id.fragment_container, new RegisterFragment()).commit();
+            }
+        });
     }
 }

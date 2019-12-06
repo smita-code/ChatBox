@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".LoginFragment">
 
     <LinearLayout
@@ -30,6 +31,7 @@
             android:hint="Email" />
 
         <EditText
+            android:inputType="textPassword|text"
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -45,6 +47,19 @@
             android:text="LOGIN" />
 
     </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_register"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:insetTop="0dp"
+        android:layout_gravity="bottom"
+        android:insetBottom="0dp"
+        android:text="Don't Have an account? Create New"
+        android:textAllCaps="false"
+        app:cornerRadius="0dp" />
 
 
 </FrameLayout>
